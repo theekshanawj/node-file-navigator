@@ -22,5 +22,5 @@ See the example.js in the repo
 
 ## TODO
 
-Make this available through NPM Registry.
+Unit test addition for the module
 
