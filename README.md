@@ -44,11 +44,13 @@ other | `Object` | N/A | N/A
 
 ```javascript
 /**
- * An application to navigate through all .js files in the working direcory
+ * An application to navigate through all .js files in the working directory
  * and nested directories and print the paths in the terminal without going through node_modules folder.
  *
 */
+// Import 
 const fileNavigator = require('node-file-navigator');
+
 const directory = __dirname;
 fileSkipPattern = ({ path }) => !/.js$/.test(path);
 isRecursive = true;
