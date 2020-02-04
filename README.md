@@ -9,16 +9,56 @@ Stable NodeJS version
 
 None
 
-## How to run
+## How to add to your application
 
-Clone/download the repo. Extract the file index.js and util.js
+Add [this](https://www.npmjs.com/package/node-file-navigator) module to your application as a dependency
 
-<addr> const fileNavigator = require('./node-file-navigator/index.js'); </addr>
+```
+npm i node-file-navigator
+```
 
-## How to use
+```javascript
+const fileNavigator = require('node-file-navigator');
+```
 
-See the example.js in the repo
+## API Reference
 
+### Method invocation
+
+```javascript
+fileNavigator({ directory, fileSkipPattern, isRecursive, directorySkipPattern, callback, ...other })
+```
+
+### Paramaters
+
+Parameter | Type | Usage | Example
+--- | :--- | --- | --- | 
+direcorty | `String` | directory for navigation | '/user/home/app'
+fileSkipPattern | `Function : ({ path, stat })` | If returns `true` processing of the file is skipped | `({path}) => (/.css$/.test(path))`
+isRecursive | `Boolean` | should navigate nested directories | `true`
+directorySkipPattern | `Function : ({ path, stat })` | If returns `true` navigation of the directory is skipped | `({path}) => (/node_modules$/.test(path))`
+callback | `Function: ({ path, stat})` | Define the file opration | `({ path }) => { console.log(path); }`
+other | `Object` | N/A | N/A
+
+### Example
+
+```javascript
+/**
+ * An application to navigate through all .js files in the working direcory
+ * and nested directories and print the paths in the terminal without going through node_modules folder.
+ *
+*/
+const fileNavigator = require('node-file-navigator');
+const directory = __dirname;
+fileSkipPattern = ({ path }) => !/.js$/.test(path);
+isRecursive = true;
+directorySkipPattern = ({ path }) => /node_modules/.test(path);
+callback = ({ path }) => { console.log(path); }
+
+// Invoke
+fileNavigator({ directory, fileSkipPattern, isRecursive, directorySkipPattern, callback, ...other })
+
+```
 
 ## TODO
 
