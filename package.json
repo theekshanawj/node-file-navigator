@@ -1,0 +1,25 @@
+{
+  "name": "node-file-navigator",
+  "version": "1.0.1",
+  "description": "Navigate through directories/files by filtering them and processing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theekshanawj/node-file-navigator.git"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "file",
+    "navigation"
+  ],
+  "author": "Theekshana Wijesinghe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theekshanawj/node-file-navigator/issues"
+  },
+  "homepage": "https://github.com/theekshanawj/node-file-navigator/blob/master/README.md"
+}
