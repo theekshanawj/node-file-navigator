@@ -62,7 +62,3 @@ fileNavigator({ directory, fileSkipPattern, isRecursive, directorySkipPattern, c
 
 ```
 
-## TODO
-
-Unit test addition for the module
-
