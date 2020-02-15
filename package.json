@@ -1,6 +1,6 @@
 {
   "name": "node-file-navigator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Navigate through directories/files by filtering them and processing",
   "main": "index.js",
   "scripts": {
