@@ -1,5 +1,7 @@
 # Node file navigator
 This simple application will enable you to navigate through a directory; recursively if required, filtering files and directories and applying custom processing on the file selected.
+[![Build Status](https://api.travis-ci.com/theekshanawj/node-file-navigator.svg?branch=master)](https://api.travis-ci.com/theekshanawj/node-file-navigator)
+
 
 ## Required 
 
