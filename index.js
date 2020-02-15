@@ -21,6 +21,9 @@ const { getFilesInDirectory, getFileStat, promiseResolver } = require('./util');
 const fileNavigator = async ({ directory, fileSkipPattern, isRecursive, directorySkipPattern, callback, ...other }) => {
   const activeDir = directory || __dirname; // If directory not defined, get the directory node is being executed
 
+  // Callback is required
+  if (!callback) return Promise.reject(new Error('No callback found'));
+
   const [err, files] = await promiseResolver(getFilesInDirectory(activeDir));
   if (!err) {
     return processFiles({
@@ -48,7 +51,7 @@ const processFiles = async ({
   callback,
   ...other
 }) => {
-  if (!files) {
+  if (!files || files.length === 0) {
     return;
   }
 
@@ -56,18 +59,21 @@ const processFiles = async ({
 
   files.forEach((file) => {
     const filePath = path.join(directory, file);
-    fileStatPromises.push(getFileStat(filePath));
+    // Wrap all the promises by the promiseResolver
+    fileStatPromises.push(promiseResolver(getFileStat(filePath)));
   });
 
-  const [errors, fileStats] = await promiseResolver(Promise.all(fileStatPromises));
+  // Resolve all promises
+  const promiseAll = await Promise.all(fileStatPromises);
 
-  if (errors) {
-    // Log errors if any
-    console.error('Error occurred while reading files', errors);
-  }
+  promiseAll.forEach(([error, fileStats]) => {
+    if (error) {
+      // Log errors if any
+      console.error('Error occurred while reading files', error);
+    }
 
-  if (fileStats) {
-    fileStats.forEach(({ fpath, fstat }) => {
+    if (fileStats) {
+      const { fpath, fstat } = fileStats;
       processSingleFile({
         fpath,
         fstat,
@@ -77,8 +83,8 @@ const processFiles = async ({
         callback,
         ...other,
       });
-    });
-  }
+    }
+  });
 };
 
 /**
@@ -94,11 +100,11 @@ const processSingleFile = async ({
   ...other
 }) => {
   if (fstat.isFile()) {
-    if (!fileSkipPattern({ fpath, fstat })) callback({ fpath, fstat });
+    if (fileSkipPattern && !fileSkipPattern({ fpath, fstat })) callback({ fpath, fstat });
   } else if (fstat.isDirectory()) {
     // If a directory, check if recursion is required and should the directory be skipped
     // And make a recursive all on the new directory
-    if (isRecursive && !directorySkipPattern({ fpath, fstat })) {
+    if (isRecursive && directorySkipPattern && !directorySkipPattern({ fpath, fstat })) {
       return fileNavigator({
         directory: fpath,
         fileSkipPattern,

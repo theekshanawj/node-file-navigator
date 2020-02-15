@@ -95,14 +95,14 @@ describe('Util tests', () => {
       expect(filesInPath).toEqual({ fpath: path, fstat: fileStat });
     });
 
-    it('should return the error object if file stat fails', () => {
+    it('should return the error object if file stat fails', async () => {
       const err = new Error('error in file stat');
       fs.stat.mockImplementation((path, callback) => {
         callback(err, null);
       });
 
       try {
-        getFileStat('/path');
+        await getFileStat('/path');
       } catch (e) {
         expect(e).toEqual(err);
       }

@@ -29,7 +29,7 @@ const getFileStat = (fpath) =>
  */
 const promiseResolver = (promise) => {
   if (promise instanceof Promise) return promise.then((value) => [null, value]).catch((error) => [error, null]);
-  return [null, null]
+  return [null, null];
 }
 
 module.exports = { getFilesInDirectory, getFileStat, promiseResolver };
