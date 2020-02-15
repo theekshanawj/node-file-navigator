@@ -27,6 +27,9 @@ const getFileStat = (fpath) =>
 /**
  * Resolve any promise or reject and return in the form [error, result] for easy access
  */
-const promiseResolver = (promise) => promise.then((value) => [null, value]).catch((error) => [error, null]);
+const promiseResolver = (promise) => {
+  if (promise instanceof Promise) return promise.then((value) => [null, value]).catch((error) => [error, null]);
+  return [null, null]
+}
 
 module.exports = { getFilesInDirectory, getFileStat, promiseResolver };
