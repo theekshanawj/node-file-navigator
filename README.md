@@ -58,7 +58,7 @@ const fileNavigator = require('node-file-navigator');
 const directory = __dirname;
 const fileSkipPattern = ({ path }) => !/.js$/.test(path);
 const isRecursive = true;
-conts directorySkipPattern = ({ path }) => /node_modules/.test(path);
+const directorySkipPattern = ({ path }) => /node_modules/.test(path);
 const callback = ({ path }) => { console.log(path); }
 
 // Invoke
