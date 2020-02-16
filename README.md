@@ -1,6 +1,8 @@
 # Node file navigator
-This simple application will enable you to navigate through a directory; recursively if required, filtering files and directories and applying custom processing on the file selected.
 [![Build Status](https://api.travis-ci.com/theekshanawj/node-file-navigator.svg?branch=master)](https://api.travis-ci.com/theekshanawj/node-file-navigator)
+
+This simple application will enable you to navigate through a directory; recursively if required, filtering files and directories and applying custom processing on the file selected.
+
 
 
 ## Required 
@@ -54,13 +56,12 @@ other | `Object` | N/A | N/A
 const fileNavigator = require('node-file-navigator');
 
 const directory = __dirname;
-fileSkipPattern = ({ path }) => !/.js$/.test(path);
-isRecursive = true;
-directorySkipPattern = ({ path }) => /node_modules/.test(path);
-callback = ({ path }) => { console.log(path); }
+const fileSkipPattern = ({ path }) => !/.js$/.test(path);
+const isRecursive = true;
+conts directorySkipPattern = ({ path }) => /node_modules/.test(path);
+const callback = ({ path }) => { console.log(path); }
 
 // Invoke
-fileNavigator({ directory, fileSkipPattern, isRecursive, directorySkipPattern, callback, ...other })
+await fileNavigator({ directory, fileSkipPattern, isRecursive, directorySkipPattern, callback });
 
 ```
-
